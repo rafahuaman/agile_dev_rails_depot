@@ -15,6 +15,14 @@ class ProductsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:products)
+    assert_select 'a', 'Show'
+    assert_select 'a', 'Edit'
+    assert_select 'a', 'Destroy'
+    assert_select 'a', 'New product'
+    Product.all.each do |product|
+      assert_select 'dt', product.title
+      assert_tag 'img', attributes: { src: "/images/#{product.image_url}" }
+    end
   end
 
   test "should get new" do
@@ -52,4 +60,5 @@ class ProductsControllerTest < ActionController::TestCase
 
     assert_redirected_to products_path
   end
+  
 end
