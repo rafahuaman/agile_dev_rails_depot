@@ -22,4 +22,13 @@ ruby:
     delivered fast, you should add Ruby to your toolbox.
   price:       49.50
   image_url:   ruby.png 
+  
+ruby2: 
+  title:       Ruby 2
+  description: 
+    Ruby is the fastest growing and most exciting dynamic
+    language out there.  If you need to get working programs
+    delivered fast, you should add Ruby to your toolbox.
+  price:       50
+  image_url:   ruby.png 
 #END:ruby
