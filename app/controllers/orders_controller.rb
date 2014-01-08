@@ -21,6 +21,7 @@ class OrdersController < ApplicationController
       return
     end
     
+    @in_checkout = true
     @order = Order.new
   end
 
