@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class UserStoriesTest < ActionDispatch::IntegrationTest
+  def setup
+  end
+  
   fixtures :products
    test "buying a product" do
      LineItem.delete_all
@@ -58,12 +61,14 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
    end
   
   test "receiving an email after an attempt to access an invalid cart" do
+    dave = users(:one)
+    post login_path, name: dave.name, password: 'secret'
     get_via_redirect "/carts/wibble"
     assert_template "index"
     mail = ActionMailer::Base.deliveries.last
     assert_equal ["leafar.huaman@gmail.com"], mail.to
     assert_equal 'depot@example.com', mail[:from].value
     assert_equal "Invalid Cart Access Attempt", mail.subject
-     
+    logout 
   end
 end
