@@ -6,7 +6,10 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(name: params[:name])
-    if user and user.authenticate(params[:password])
+    if User.count.zero?
+      session[:user_id] = params[:name]
+      redirect_to new_user_url, notice: "Please create Admin User"
+    elsif user and user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to admin_url
     else
