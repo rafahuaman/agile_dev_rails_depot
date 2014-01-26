@@ -33,6 +33,11 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
+    unless params[:order][:pay_type].blank?
+      pay_type_id = PayType.find_by(name: params[:order].delete(:pay_type)).id 
+    end
+    params[:order][:pay_type_id] = pay_type_id
+    
     @order = Order.new(order_params)
     @order.add_line_items_from_cart(@cart)
 
@@ -42,7 +47,7 @@ class OrdersController < ApplicationController
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
         OrderNotifier.received(@order).deliver
-        format.html { redirect_to store_url, notice: 'Thank you for your order.' }
+        format.html { redirect_to store_url, notice: I18n.t('.thanks') }
         format.json { render action: 'show', status: :created, location: @order }
       else
         format.html { render action: 'new' }

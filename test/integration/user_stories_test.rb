@@ -24,11 +24,11 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
      get "/orders/new"
      assert_response :success
      assert_template "new"
-     order_pay_type_id = PayType.find_by( name: 'Check').id
+     
      post_via_redirect "orders", order: {  name: "Dave Thomas",
                                            address: "123 The Street",
                                            email: "dave@example.com",
-                                           pay_type_id: order_pay_type_id }
+                                           pay_type: "Check" }
      assert_response :success
      assert_template "index"
       

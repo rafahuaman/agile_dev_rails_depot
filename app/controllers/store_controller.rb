@@ -3,9 +3,13 @@ class StoreController < ApplicationController
   include CurrentCart
   before_action :set_cart
   def index
-    @products = Product.order(:title)
-    @time = Time.now().strftime("%c")
-    increase_session_index_access_counter
+    if params[:set_locale]
+      redirect_to store_url(locale: params[:set_locale])
+    else
+      @products = Product.order(:title)
+      @time = Time.now().strftime("%c")
+      increase_session_index_access_counter
+    end
   end
   
   private
