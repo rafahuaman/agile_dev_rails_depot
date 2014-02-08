@@ -21,7 +21,10 @@
   <div id="columns">
     <div id="side">
       <div id="time">
-        <%= @time %>
+        <%= @time %></br>
+      </div>
+      <div id="login">
+        <%= render "shared/login" %>
       </div>
       <% if @cart %>
         <%= hidden_div_if(@cart.line_items.empty?, id: 'cart') do %>
@@ -30,10 +33,10 @@
       <% end %>
       
       <ul>
-        <li><a href="http://www...."><%= t('.home') %></a></li>
-        <li><a href="http://www..../faq"><%= t('.questions') %></a></li>
-        <li><a href="http://www..../news"><%= t('.news') %></a></li>
-        <li><a href="http://www..../contact"><%= t('.contact') %></a></li>
+        <li><%= link_to t('.home'), store_path %></li>
+        <li><%= link_to t('.questions'), questions_path %></li>
+        <li><%= link_to t('.news'), news_path %></li>
+        <li><%= link_to t('.contact'), contact_path %></li>
       </ul>
       
       <% if session[:user_id] %>

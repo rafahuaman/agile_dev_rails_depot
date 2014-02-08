@@ -15,6 +15,9 @@ Depot::Application.routes.draw do
   
   scope '(:locale)' do
     get "store/index"
+    match '/questions', to: 'static_pages#questions', via: 'get'
+    match '/news', to: 'static_pages#news', via: 'get'
+    match '/contact', to: 'static_pages#contact', via: 'get'
     resources :orders
     resources :line_items do
       post 'decrement', on: :member
@@ -22,6 +25,8 @@ Depot::Application.routes.draw do
     resources :carts    
     root 'store#index', as: 'store', via: :all
   end
+  
+  
   
 
   # The priority is based upon order of creation: first created -> highest priority.
